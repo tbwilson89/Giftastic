@@ -3,11 +3,12 @@ var apiKey = 'dc6zaTOxFJmzC&q'
 
 
 function makeBtns(){
+  $('#btn-list').empty()
   gifArr.forEach(creature=>$('#btn-list').append(`<button class='btn btn-primary' data-name=${creature}>${creature}</button>`))
   console.log('test')
   $('.btn').on('click', function(){
     console.log(this.dataset.name)
-    var queryURL = `http://api.giphy.com/v1/gifs/search?q=${this.dataset.name}&api_key=${apiKey}_KEY&limit=10`
+    var queryURL = `https://api.giphy.com/v1/gifs/search?q=${this.dataset.name}&api_key=${apiKey}_KEY&limit=10`
     $.ajax({url: queryURL, method: 'GET'}).then((res)=>{
       $('#gif-display').empty();
       res.data.forEach((gif)=>{
@@ -39,5 +40,16 @@ function makeBtns(){
     })
   })
 }
+
+function addGif(){
+  event.preventDefault()
+  console.log(event)
+}
+$('#add-gif-btn').on('click', ()=>{
+  event.preventDefault();
+  gifArr.push($('#input-text').val())
+  makeBtns()
+  console.log($('#input-text').val())
+})
 
 makeBtns()
