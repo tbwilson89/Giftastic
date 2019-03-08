@@ -1,6 +1,14 @@
 * {
   box-sizing: border-box;
 }
+h1 {
+  font-size: 30px;
+  font-weight: bold;
+}
+h3 {
+  padding: 0 5px;
+  font-size: 20px;
+}
 body {
   display: flex;
   flex-direction: column;
@@ -8,12 +16,29 @@ body {
   background-size: cover;
   background-repeat: no-repeat;
 }
-#btn-list {
+nav {
+  display: flex;
+  justify-content: space-between;
+  padding: 25px;
+  color: #fff;
+  background: #152429;
+}
+form {
+  align-items: center;
+}
+input {
+  margin: 0 5px;
+  border-radius: 4px;
+}
+#btn-list, #fav-btn-row {
   display: flex;
   flex-wrap: wrap;
   background: #122125;
 }
-button {
+.show-gifs {
+  margin: 10px;
+}
+#show-favorites {
   margin: 10px;
 }
 .container {
@@ -29,18 +54,20 @@ button {
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
-  width: 80%;
+}
+.card-img {
+    width: 100%;
+    height: 15vw;
+    object-fit: cover;
+}
+.card-body * {
+  padding: 5px;
 }
 .gif-box {
-  width: 30%;
   margin: 10px;
 }
 .fill-space {
   flex: 1;
-}
-#add-gif {
-  width: 20%;
-  padding: 0 15px;
 }
 footer {
   padding: 25px;

@@ -11,19 +11,22 @@
       <title></title>
     </head>
   <body>
+    <nav>
+      <h1>Giftastic!</h1>
+      <form class="form-inline">
+        <label class="sr-only" for="inlineFormInputName2">Gif Name</label>
+        <input id='input-text' type="text" class="form-control mb-2 mr-sm-2" id="inlineFormInputName2" placeholder="Add Gif Button">
+        <button id='add-gif-btn' type="submit" class="btn btn-primary mb-2">Submit</button>
+      </form>
+    </nav>
+    <div id='fav-btn-row'>
+      <button id='show-favorites' class='btn btn-danger' name="button">Favorites</button>
+    </div>
     <div id="btn-list"></div>
+
     <div class="container">
       <section id='main-content'>
         <div id="gif-display"></div>
-        <div id="add-gif">
-          <form class="add-gif" action="index.html" method="post">
-            Add an emotional gif:<br>
-            <input id='input-text' type="text" name="add-gif-name" value="">
-            <input id='add-gif-btn' type="submit" name="submit-btn" value="Submit">
-          </form>
-
-        </div>
-
       </section>
     </div>
 
