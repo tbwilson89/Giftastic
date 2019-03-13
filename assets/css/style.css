@@ -13,6 +13,7 @@ body {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  background: #8693AB;
   background-size: cover;
   background-repeat: no-repeat;
 }
@@ -21,7 +22,7 @@ nav {
   justify-content: space-between;
   padding: 25px;
   color: #fff;
-  background: #152429;
+  background: #122125;
 }
 form {
   align-items: center;
@@ -33,7 +34,7 @@ input {
 #btn-list, #fav-btn-row {
   display: flex;
   flex-wrap: wrap;
-  background: #122125;
+  background: #152429;
 }
 .show-gifs {
   margin: 10px;
@@ -56,10 +57,14 @@ input {
   justify-content: space-between;
   flex-wrap: wrap;
 }
- .card-img {
-    width: 100%;
-    height: 15vh;
-    object-fit: cover;
+.card {
+  margin-bottom: 10px;
+  background: #eee;
+}
+.card-img {
+  width: 100%;
+  height: 15vh;
+  object-fit: cover;
 }
 .card-body * {
   padding: 5px;

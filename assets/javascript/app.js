@@ -23,20 +23,40 @@ function onClickAddGifs(event){
   }
   var queryURL = `https://api.giphy.com/v1/gifs/search?q=${this.dataset.name}&api_key=${apiKey}_KEY&limit=10&offset=${btnClickOffset * 10}`
   $.ajax({url: queryURL, method: 'GET'}).then((res)=>{
-    console.log(res.data)
+    // For each gif returned, run function to create gif cards/tiles
     res.data.forEach((gif, i)=>{
       addGifTile(gif.images.fixed_height_still.url, gif.images.fixed_height.url, gif.rating, gif.title, i)
     })
+    // Add onClick to image/gif to run function to change between the two states.
     $('img').on('click', onClickImg)
+    // Add onClick to .add-fav buttons.
     $('.add-fav').on('click', function(){
       var imgSibling = $(this).parent().siblings('.card-img')
-      var newFav = imgSibling.data('storage')
-      console.log(favArr.indexOf(newFav))
-      if(favArr.indexOf(newFav) === -1){
+      var newFav = Object.assign(imgSibling.data('storage'))
+      // Check if new favorite object is already in the favArr.
+      if(favArr.map(fav=>isObjEqual(fav,newFav)).indexOf(true) === -1){
         favArr.push(newFav)
+        localStorage.setItem('favs', JSON.stringify(favArr))
       }
     })
   })
+}
+// function to check object equality (not instance, but values)
+// Thanks for this function and explanation from:
+// http://adripofjavascript.com/blog/drips/object-equality-in-javascript.html
+function isObjEqual(a, b){
+    var aProps = Object.getOwnPropertyNames(a);
+    var bProps = Object.getOwnPropertyNames(b);
+    if (aProps.length != bProps.length) {
+        return false;
+    }
+    for (var i = 0; i < aProps.length; i++) {
+        var propName = aProps[i];
+        if (a[propName] !== b[propName]) {
+            return false;
+        }
+    }
+    return true;
 }
 // function to append HTML for gif card/tile
 function addGifTile(still, animate, rating, title, index, isFav=false){
@@ -85,36 +105,28 @@ $('#add-gif-btn').on('click', ()=>{
 $('#show-favorites').on('click', showFavorites)
 function showFavorites(){
   $('#gif-display').empty()
+  lastBtnClicked = ''
   console.log(favArr)
   favArr.forEach((fav, i)=>{addGifTile(fav.still, fav.animate, fav.rating, fav.title, i, true)})
   $('.remove-fav').on('click', function(){
     var eleImg = $(this).parent().siblings('.card-img')
     var storage = eleImg.data('storage')
     favArr.splice(storage.index, 1)
-    // TESTING COOKIES HERE
-    bake_cookie('giftastic_cookie', favArr)
-    // ^ THIS IS A WIP ^
+    localStorage.setItem('favs', JSON.stringify(favArr))
     $(this).parent().parent().remove()
     showFavorites()
   })
   $('img').on('click', onClickImg)
 }
+// Used to load buttons based on gifArr and pull local storage to see if user has favorite gifs from a previous visit.
+function onLoad(){
+  makeBtns()
+  localArr = JSON.parse(localStorage.getItem('favs'))
+  if(Array.isArray(localArr)){
+    console.log('testing')
+    favArr = localArr
+  }
+  console.log(favArr)
+}
 //initial setup of buttons when loading document
-read_cookie('giftastic_cookie')
-makeBtns()
-
-// TESTING COOKIES
-// Make 'em
-function bake_cookie(name, value) {
-  var json_arr = JSON.stringify(value)
-  var testCookie = `${name}=${JSON.stringify(value)}; domain=.${window.location.host.toString()}; path=/;`
-  var cookie = [name, '=', JSON.stringify(value), '; domain=.', window.location.host.toString(), '; path=/;'].join('');
-  document.cookie = cookie;
-}
-// Read 'em
-function read_cookie(name) {
- var result = document.cookie.match(new RegExp(name + '=([^;]+)'));
- result && (result = JSON.parse(result[1]));
- console.log(result)
- return result;
-}
+onLoad()
