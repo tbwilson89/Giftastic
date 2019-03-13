@@ -47,12 +47,7 @@ input {
   margin-top: 50px;
   flex: 1;
 }
-/* #main-content {
-  display: flex;
-  width: 100%;
-} */
 #gif-display { */
-  /* width: 100%; */
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
