@@ -27,8 +27,6 @@ function onClickAddGifs(event){
     res.data.forEach((gif, i)=>{
       addGifTile(gif.images.fixed_height_still.url, gif.images.fixed_height.url, gif.rating, gif.title, i)
     })
-    // Add onClick to image/gif to run function to change between the two states.
-    $('img').on('click', onClickImg)
     // Add onClick to .add-fav buttons.
     $('.add-fav').on('click', function(){
       var imgSibling = $(this).parent().siblings('.card-img')
@@ -118,6 +116,8 @@ function showFavorites(){
   })
   $('img').on('click', onClickImg)
 }
+// Add onClick to image/gif to run function to change between the two states.
+$(document).on('click', 'img', onClickImg)
 // Used to load buttons based on gifArr and pull local storage to see if user has favorite gifs from a previous visit.
 function onLoad(){
   makeBtns()
